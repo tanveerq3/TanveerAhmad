@@ -417,3 +417,12 @@ body{
   .quick-stats{grid-template-columns:1fr 1fr}
   .profile-wrap{height:340px}
 }
+
+/* Reliable profile-photo rendering */
+.profile-photo{
+  z-index:2;
+}
+.profile-fallback{
+  z-index:1;
+  display:none;
+}
