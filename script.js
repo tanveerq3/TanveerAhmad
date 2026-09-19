@@ -24,7 +24,26 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 const profilePhoto = document.querySelector('.profile-photo');
 const profileFallback = document.querySelector('.profile-fallback');
+
 if (profilePhoto && profileFallback) {
-  profilePhoto.addEventListener('load', () => { profileFallback.style.display = 'none'; });
-  profilePhoto.addEventListener('error', () => { profilePhoto.style.display = 'none'; profileFallback.style.display = 'grid'; });
+  const showPhoto = () => {
+    profilePhoto.style.display = 'block';
+    profileFallback.style.display = 'none';
+  };
+
+  const showFallback = () => {
+    profilePhoto.style.display = 'none';
+    profileFallback.style.display = 'grid';
+  };
+
+  // Handle normal network loads.
+  profilePhoto.addEventListener('load', showPhoto);
+  profilePhoto.addEventListener('error', showFallback);
+
+  // Handle refreshes where the browser loads the image from cache
+  // before the load listener is attached.
+  if (profilePhoto.complete) {
+    if (profilePhoto.naturalWidth > 0) showPhoto();
+    else showFallback();
+  }
 }
