@@ -21,3 +21,10 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 document.getElementById('year').textContent = new Date().getFullYear();
+
+const profilePhoto = document.querySelector('.profile-photo');
+const profileFallback = document.querySelector('.profile-fallback');
+if (profilePhoto && profileFallback) {
+  profilePhoto.addEventListener('load', () => { profileFallback.style.display = 'none'; });
+  profilePhoto.addEventListener('error', () => { profilePhoto.style.display = 'none'; profileFallback.style.display = 'grid'; });
+}
